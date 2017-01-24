@@ -26,33 +26,44 @@ var contacts = [
 
 
 
-function Contact (name, phone, address, added, id ) {
+function Contact (name, phone, address) {
   this.name = name
   this.phoneNum = phone
   this.address = address
-  this.added = new Date()
-  this.id = Math.random()
 }
 
 
-var eric = new Contact (contacts[0].name, contacts[0].phone, contacts[0].address, contacts[0].added)
-var rob = new Contact (contacts[1].name, contacts[1].phone, contacts[1].address, contacts[1].added)
-var mary = new Contact (contacts[2].name, contacts[2].phone, contacts[2].address, contacts[2].added)
+var eric = new Contact (contacts[0].name, contacts[0].phone, contacts[0].address)
+var rob = new Contact (contacts[1].name, contacts[1].phone, contacts[1].address)
+var mary = new Contact (contacts[2].name, contacts[2].phone, contacts[2].address)
+
+
 
 
 
 function ContactList () {
   this.contacts = []
-  this.find = 
-  // this.get =
+  this.find = function (name) {
+    return this.contacts.filter(contact => contact.name === name)
+  }
+
   this.add = function (contact) {
+    contact.id = this.contacts.length
     this.contacts.push(contact)
-    // this.id = Math.random()
+    contact.added = new Date()
+    console.log('Contact is:', contact)
   }
   // this.remove =
+  this.remove = function (id) {
+    this.contacts = this.contacts.filter(contact => contact.id != id)
+  }
 }
 
+
 var myContactList = new ContactList
+myContactList.add(eric)
+myContactList.add(mary)
+myContactList.find(rob)
 
 myContactList.add(contacts)
 console.log(myContactList);
